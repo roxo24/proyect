@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacientes</title>
+    <link rel="stylesheet" href="{% static 'gestion_pacientes/stylepc.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar"> 
+        <div class="logo">Clinica Jony Grey - Portal Pacientes</div>
+        <a href="{% url 'home' %}">
+        <button class="button">Pagina Principal</button>
+        </a>
+
+     </nav>
+    <div class="container">
+        <h2> Bienvenido {{ request.user.nombre }}</h2>
+        <h3> ¡Hola! ¿Qué te gustaría hacer? Selecciona la opción que mejor se adapta a lo que buscas.</h3>
+        
+        <div class="button-container">
+            <a id="agendar-cita">
+                <button class="buttonn">Agendar Cita</button>
+            </a>
+            <a id="consultar-cita">
+                <button class="buttonn">Consultar Citas</button>
+            </a>
+            <a id="cancelar-cita"> 
+                <button class="buttonn">Cancelar Cita</button>
+            </a>
+            <a id="historia-clinica"> 
+                <button class="buttonn">Historia Clinica</button>
+            </a>
+            
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("agendar-cita").addEventListener("click", function() {
+            window.location.href = "{% url 'agendar_cita' %}";
+        });
+
+        document.getElementById("consultar-cita").addEventListener("click", function() {
+            window.location.href = "{% url 'consultar_citas' %}";
+        });
+        document.getElementById("cancelar-cita").addEventListener("click", function() {
+            window.location.href = "{% url 'cancelar_cita' %}";
+        });
+        document.getElementById("historia-clinica").addEventListener("click", function() {
+            window.location.href = "{% url 'ver_historia' %}";
+        });
+    </script>
+</body>
+</html>

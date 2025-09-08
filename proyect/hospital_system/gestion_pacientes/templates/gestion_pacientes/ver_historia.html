@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Cita</title>
+    <link rel="stylesheet" href="{% static 'gestion_pacientes/stylevh.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav class="navbar"> 
+        <div class="left-section">
+            <a href="{% url 'pagina_pacientes' %}">
+                <button class="button-volver">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+            </a>
+            <div class="logo">Clinica Jony Grey - Portal Pacientes</div>
+        </div>
+        <div class="right-section">
+            <a href="{% url 'home' %}">
+                <button class="button">Pagina Principal</button>
+            </a>
+        </div>
+     </nav>
+     <div class="container">
+        <h2> Bienvenido Sr Usuario, aquí tienes tus historias clinicas</h2>
+        <div class="documento"><strong>Documento de identidad:</strong> {{request.user.documento}}</div>
+
+        {% for historia in historias %}
+            {% if historia.id %}
+                <a href="{% url 'ver_historial' historia.id %}">
+      <div class="cita-container">
+        <div class="historia-info"><strong>Fecha:</strong> {{ historia.Cita.fecha }}</div>
+        <div class="historia-info"><strong>Motivo de consulta:</strong> {{ historia.motivo }}</div>
+        <div class="historia-info"><strong>Diagnóstico:</strong> {{ historia.diagnostico }}</div>
+        <div class="historia-info"><strong>Tratamiento:</strong> {{ historia.tratamiento }}</div>
+      </div>
+    </a>
+  {% else %}
+    <p>Historia clínica inválida.</p>
+  {% endif %}
+{% endfor %}
+
+        
+        
+     </div>
+     
+</body>
+</html>

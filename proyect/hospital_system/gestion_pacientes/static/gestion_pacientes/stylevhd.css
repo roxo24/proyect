@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+    margin: 10px;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+body{
+    width: 100%;
+    min-height: 100vh; 
+    display: flex; 
+    justify-content: center;
+    align-items: flex-start; 
+    background-color: #c4efe5;
+    padding: 20px 0; 
+    }
+    .container{
+        width: 90%; 
+        max-width: 800px;
+        height: 90vh; 
+        display: block; 
+        position: relative;
+        overflow-y: auto; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        background: white; 
+        padding: 20px;
+        border-radius: 10px;
+    }
+.container-input{
+        width: 300px;
+        height: 40px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        
+        gap: 8px;
+        padding: 0 15px;
+        background-color:#EEEE;
+        border: 2px solid rgb(189, 240, 243);
+    }
+
+.container-form h2{
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+.container-form span{
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+.Registro {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+.button {
+    width: 170px;
+    height: 45px;
+    font-size: 15px;
+    border: 2px solid rgb(189, 240, 243);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #eeeeee;
+    color: #3ab397;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background-color: #d4d4d4;
+}
+
+.button-volver {
+    width: 45px;
+    height: 45px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #a8e8d9;
+    color: #21b16e;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.button-volver:hover {
+    background-color: #f4f4f4;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(249, 55, 55, 0.1);
+}
+
+h1, h2, h3 {
+    margin: 10px 0 5px 0; 
+}
+
+.container-input {
+    width: 100%;
+}
+
+
+.container-input input, 
+.container-input select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    align-items: left  ;
+    text-align: left;
+}

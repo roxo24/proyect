@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Cita</title>
+    <link rel="stylesheet" href="{% static 'gestion_pacientes/styleac.css' %}?v=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav class="navbar"> 
+        <div class="left-section">
+            <a href="{% url 'pagina_pacientes' %}">
+                <button class="button-volver">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+            </a>
+            <div class="logo">Clinica Jony Grey - Portal Pacientes</div>
+        </div>
+        <div class="right-section">
+            <a href="{% url 'home' %}">
+                <button class="button">Pagina Principal</button>
+            </a>
+        </div>
+    </nav>
+     <div class="container">
+        <form method="POST" action="{% url 'agendar_cita' %}" class="Agendar Citas">
+            {% csrf_token %}
+            <input type="hidden" name="type" value="form_agendar_cita">
+            <h1> Asignación de citas</h1>
+            
+            <span style="display: block;">Especialidad</span>
+            <div class="container-input">
+                
+                <select name="especialidad" id="especialidad">
+                    <option value="MEDICINA GENERAL">MEDICINA GENERAL</option>
+                    <option value="GINECOLOGIA" >GINECOLOGIA</option>
+                    <option value="PSICOLOGIA">PSICOLOGIA</option>
+                    <option value="ODONTOLOGIA">ODONTOLOGIA</option>
+                    <option value="PLANIFICACION FAMILIAR">PLANIFICACION FAMILIAR</option>
+                    <option value="PEDIATRIA">PEDIATRIA</option>
+                  </select>
+            </div>
+            <div class="container-input">
+                <select name="doctor" id="doctor">
+                    
+                    <option value="" disabled selected>Seleccione un doctor</option>
+                    {% for doctor in doctores %}
+                        <option value="{{ doctor.id }}" data-especialidad="{{ doctor.especialidad }}" required>{{ doctor.usuario.nombre }}</option>
+                    {% endfor %}
+                    
+                    
+                  </select>
+            </div>
+
+            <h3> Fecha Deseada </h3>
+            <div class="container-input">
+                <input type="date" id="fecha" name="fecha" placeholder="Fecha para su cita" required>
+            </div>
+            <h3> Hora </h3>
+            <div class="container-input">
+                <input type="time" id="hora" name="hora" placeholder="Hora de su cita" required>
+            </div>
+            <button type="submit" class="button">Agendar</button>
+        </form>
+     </div>
+     {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <script>
+                alert("{{ message }}");
+            </script>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+     <script>
+        
+
+        document.getElementById("especialidad").addEventListener("change", function() {
+        const especialidad = this.value.toLowerCase();
+        const opciones = document.getElementById("doctor").options;
+
+        for (let i = 0; i < opciones.length; i++) {
+        const opcion = opciones[i];
+        const espDoctor = opcion.getAttribute("data-especialidad");
+
+        if (espDoctor) {
+            opcion.style.display = espDoctor.toLowerCase() === especialidad ? "block" : "none";
+        } else {
+           
+            opcion.style.display = "block";
+        }
+        }
+
+        document.getElementById("doctor").selectedIndex = 0;
+        });
+     </script>
+</body>
+</html>

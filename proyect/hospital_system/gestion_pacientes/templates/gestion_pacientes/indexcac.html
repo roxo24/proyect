@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancelar Cita</title>
+    <link rel="stylesheet" href="{% static 'gestion_pacientes/stylecac.css' %}?v=3.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav class="navbar"> 
+        <div class="left-section">
+            <a href="{% url 'pagina_pacientes' %}">
+                <button class="button-volver">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+            </a>
+            <div class="logo">Clinica Jony Grey - Portal Pacientes</div>
+        </div>
+        <div class="right-section">
+            <a href="{% url 'home' %}">
+                <button class="button">Pagina Principal</button>
+            </a>
+        </div>
+     </nav>
+     <div class="container"> 
+        <h2> Bienvenido, Sr Usuario</h2>
+        <h3> Tus citas pendientes están aquí. Selecciona una para cancelarla. </h3>
+        
+        {% if citas %}
+            
+                {% for cita in citas %}
+                    <div class="cita-container" name="cita_id" onclick="seleccionarCita('{{ cita.id }}', this)">
+                        <div class="cita-info"><strong>especialidad:</strong> {{ cita.doctor_perfil.especialidad }} </div>
+                        <div class="cita-info"><strong>doctor:</strong> {{ cita.doctor }} </div>
+                        <div class="cita-info"><strong>Fecha:</strong>{{ cita.fecha }} </div>
+                        <div class="cita-info"><strong>Hora:</strong>  {{ cita.hora }}</div>
+                    </div>
+                {% endfor %}
+            
+        {% else %}
+            <p>No hay citas pendientes.</p>
+        {% endif %}
+        
+        <form method="POST" action="{% url 'cancelar_cita' %}">
+            {% csrf_token %}
+            <input type="hidden" name="cita_id" id="cita_id_input">
+        
+            <button type="submit" class="button" id="btnAtender" disabled>Cancelar Cita</button>
+        </form>
+
+        {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <script>
+                alert("{{ message }}");
+            </script>
+        {% endfor %}
+    </div>
+    {% endif %}
+        <script>
+            let citaSeleccionada = null;
+            function seleccionarCita(idCita, elemento) {
+                if (citaSeleccionada) {
+                citaSeleccionada.classList.remove("selected");
+            }
+
+            elemento.classList.add("selected");
+            citaSeleccionada = elemento;
+
+        
+            document.getElementById("btnAtender").disabled = false;
+
+        
+            document.getElementById("cita_id_input").value = idCita;
+            }
+          
+            
+        </script>
+
+
+     </div>
+</body>
+</html>

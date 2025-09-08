@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Cita</title>
+    <link rel="stylesheet" href="{% static 'gestion_pacientes/stylecc.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav class="navbar"> 
+        <div class="left-section">
+            <a href="{% url 'pagina_pacientes' %}">
+                <button class="button-volver">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+            </a>
+            <div class="logo">Clinica Jony Grey - Portal Pacientes</div>
+        </div>
+        <div class="right-section">
+            <a href="{% url 'home' %}">
+                <button class="button">Pagina Principal</button>
+            </a>
+        </div>
+     </nav>
+     <div class="container">
+        <h2> Bienvenido Sr Usuario, aquí tienes tus citas pendientes</h2>
+        <div class="documento"><strong>Documento de identidad:</strong> {{request.user.documento}}</div>
+
+        {% if citas %}
+            
+                {% for cita in citas %}
+                    <div class="cita-container">
+                        <div class="cita-info"><strong>especialidad:</strong> {{ cita.doctor_perfil.especialidad }} </div>
+                        <div class="cita-info"><strong>doctor:</strong> {{ cita.doctor }} </div>
+                        <div class="cita-info"><strong>Fecha:</strong>{{ cita.fecha }} </div>
+                        <div class="cita-info"><strong>Hora:</strong>  {{ cita.hora }}</div>
+                    </div>
+                {% endfor %}
+            
+        {% else %}
+            <p>No hay citas pendientes.</p>
+        {% endif %}
+        
+     </div>
+
+</body>
+</html>

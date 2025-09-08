@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Medicos</title>
+    <link rel="stylesheet" href="{% static 'gestion_pacientes/stylemd.css' %}">
+</head>
+<body>
+    <nav class="navbar"> 
+        <div class="logo">Clinica Jony Grey - Portal Medicos</div>
+        <a href="{% url 'home' %}">
+            <button class="button">Pagina Principal</button>
+        </a>
+     </nav>
+     <div class="container"> 
+        <h2> Bienvenido, Dr. {{ request.user.nombre }}</h2>
+        <h3> Citas Pendientes</h3>
+
+        {% if citas %}
+            <ul>
+                {% for cita in citas %}
+                    <div class="cita-container" onclick="seleccionarCita('{{ cita.id }}', this)">
+                    <div class="cita-info"><strong>Numero de Documento:</strong> {{ cita.paciente.documento }} </div>
+                    <div class="cita-info"><strong>Paciente:</strong> {{ cita.paciente }} </div>
+                    <div class="cita-info"><strong>Fecha:</strong>{{ cita.fecha }} </div>
+                    <div class="cita-info"><strong>Hora:</strong>  {{ cita.hora }}</div>
+                </div>
+        
+                 {% endfor %}
+            </ul>
+            <a id="enlace-atender" href="#">
+                    <button  class="button"   id="btnAtender" disabled>Atender Cita</button>
+            </a>
+            
+            
+
+        {% else %}
+            <p>No hay citas pendientes.</p>
+        {% endif %}
+
+        <a href="{% url 'generar_reporte' %}">
+            <button class="button">busqueda de reportes</button>
+        </a>
+        
+        <script>
+            let citaSeleccionada = null;
+            
+            function seleccionarCita(idCita, elemento) {
+                if (citaSeleccionada) {
+                    citaSeleccionada.classList.remove("selected");
+                }
+
+                elemento.classList.add("selected");
+                citaSeleccionada = elemento;
+
+            
+                document.getElementById("btnAtender").disabled = false;
+                document.getElementById("enlace-atender").href = `/gestion_pacientes/atender_cita/${idCita}/`;
+            }
+            
+        </script>
+
+
+     </div>
+</body>
+</html>

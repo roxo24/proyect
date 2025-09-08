@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static  %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro historia clinica</title>
+    <link rel="stylesheet" href="{% static 'gestion_pacientes/styler.css' %}?v=3.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <a href="{% url 'pagina_doctores' %}">
+    <button class="button-volver">
+        <i class="fa fa-arrow-left"></i>
+    </button>
+</a>
+    <div class="container">
+        <div class="container-form">
+          <form method="POST" action="{% url 'atender_cita' cita.id  %}" class="atender_cita">
+            {% csrf_token %}
+            <input type="hidden" name="type" value="form_atender">
+              <h1>Registro historia clinica</h1>
+          <span> Señor Usuario, digite los datos personales del paciente para un registro exitoso.</span>
+          <h2>1.Información personal</h2>
+          <span style="display: block;">Nombres y apellidos</span>
+          <div class="container-input">
+              <input type="text" placeholder="Nombre" value="{{ paciente.usuario.nombre }}">
+          </div>
+          
+        <span style="display: block;">Tipo y numero de identificación</span>
+        <div class="container-input">
+            <select name="cctipo" id="cctipo">
+                <option value="CC">CC</option>
+                <option value="CE">CE</option>
+                <option value="RC">rc</option>
+                <option value="TI">TI</option>
+              </select>
+        </div>
+        <div class="container-input">
+              <input type="number" placeholder="Numero de identificación" value="{{ paciente.usuario.documento }}">
+          </div>
+        <span style="display: block;">Fecha de nacimiento</span>
+        <div class="container-input">
+            <input type="date" placeholder="Fecha de nacimiento">
+        </div>
+        <span style="display: block;">Sexo</span>
+        <div class="container-input">
+          <select name="sexo" id="sexo">
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+            </select>
+      </div>
+        <span style="display: block;">Dirección de residencia</span>
+        <div class="container-input">
+          <input type="text" placeholder="Dirección de residencia">
+      </div>
+      
+      <h2>2.Motivo de la consulta</h2>
+    <div class="container-input">
+        <input type="text" name="motivo" placeholder="">
+      </div>
+      <h2>3.Antecedentes</h2>
+      <h3>Antecedentes personales</h3>
+      <span style="display: block;">Patológicos</span>
+    <div class="container-input">
+        <input type="text" name="antecedentes_patologicos" placeholder="">
+      </div>
+      <span style="display: block;">Quirúrgicos</span>
+    <div class="container-input">
+        <input type="text" name="antecedentes_quirurgicos" placeholder="">
+      </div>
+      <span style="display: block;">Alergias</span>
+    <div class="container-input">
+        <input type="text" name="alergias" placeholder="">
+      </div>
+      <span style="display: block;"> Fármacos Actuales</span>
+    <div class="container-input">
+        <input type="text" name="medicamentos" placeholder="">
+      </div>
+      <span style="display: block;">Hábitos: tabaco/alcohol/drogas</span>
+    <div class="container-input">
+        <input type="text" name="habitos" placeholder="">
+      </div>
+      <h3>Antecedentes familiares</h3>
+    <div class="container-input">
+        <input type="text" name="antecedentes_familiares" placeholder="">
+      </div>
+    <h2>4.Revisión por sistemas (RPS) </h2>
+    <div class="container-input">
+      <input type="text" name="revision_cardio" placeholder="Cardiovascular">
+    </div>
+    <div class="container-input">
+      <input type="text" name="revision_respiratoria" placeholder="Respiratorio">
+    </div>
+    <div class="container-input">
+      <input type="text" name="revision_digestiva" placeholder="Digestivo">
+    </div>
+    <div class="container-input">
+      <input type="text" name="revision_neurologica" placeholder="Neurologico">
+    </div>
+    <h2>5.Examen Fisico</h2>
+    <div class="container-input">
+      <input type="number" name="peso" placeholder="Peso (Kg)">
+    </div>
+    <div class="container-input">
+      <input type="number" name="estatura" placeholder="Estatura (cm)">
+    </div>
+    <h2>6.Diagnostico (Dx)</h2>
+    <div class="container-input">
+      <input type="text" name="diagnostico" placeholder="">
+    </div>
+    <h2>7.Plan de manejo</h2>
+    <div class="container-input">
+      <input type="text" name="plan_tratamiento" placeholder="">
+    </div>
+    <h3>Médico Tratante</h3>
+    <div class="container-input">
+      <input type="text" placeholder="">
+    </div>
+
+    <button type="submit" class="button">Guardar</button>
+  </form> 
+  
+</div> 
+</div> 
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <script>
+                alert("{{ message }}");
+            </script>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+</html>
